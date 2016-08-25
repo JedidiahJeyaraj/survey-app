@@ -79,15 +79,17 @@ public class Settings extends AppCompatActivity {
                 sheet.addCell(new Label(11, 0, "ZIP"));
                 sheet.addCell(new Label(12, 0, "COUNTRY"));
                 sheet.addCell(new Label(13, 0, "WORKING_HRS"));
-                sheet.addCell(new Label(14, 0, "WEBSITE"));
-                sheet.addCell(new Label(15, 0, "PART_TIME_AVAIL"));
-                sheet.addCell(new Label(16, 0, "FREQ_PART"));
-                sheet.addCell(new Label(17, 0, "OPINION_PART"));
-                sheet.addCell(new Label(18, 0, "PART_TIMING"));
-                sheet.addCell(new Label(19, 0, "SALARY_TYPE"));
-                sheet.addCell(new Label(20, 0, "MONTHLY_SALARY"));
-                sheet.addCell(new Label(21, 0, "AGENCIES"));
-                sheet.addCell(new Label(22, 0, "MONEY_SPENT"));
+                sheet.addCell(new Label(14, 0, "WORKING_HRS_TO"));
+                sheet.addCell(new Label(15, 0, "WEBSITE"));
+                sheet.addCell(new Label(16, 0, "PART_TIME_AVAIL"));
+                sheet.addCell(new Label(17, 0, "FREQ_PART"));
+                sheet.addCell(new Label(18, 0, "OPINION_PART"));
+                sheet.addCell(new Label(19, 0, "PART_TIMING"));
+                sheet.addCell(new Label(20, 0, "PART_TIMING_TO"));
+                sheet.addCell(new Label(21, 0, "SALARY_TYPE"));
+                sheet.addCell(new Label(22, 0, "MONTHLY_SALARY"));
+                sheet.addCell(new Label(23, 0, "AGENCIES"));
+                sheet.addCell(new Label(24, 0, "MONEY_SPENT"));
 
                 if (cursor.moveToFirst()) {
                     do {
@@ -105,11 +107,13 @@ public class Settings extends AppCompatActivity {
                         String zip = cursor.getString(cursor.getColumnIndex(handler.ZIP));
                         String country = cursor.getString(cursor.getColumnIndex(handler.COUNTRY));
                         String wrkhrs = cursor.getString(cursor.getColumnIndex(handler.WORKING_HRS));
+                        String wrkhrs2 = cursor.getString(cursor.getColumnIndex(handler.WORKING_HRS_TO));
                         String website = cursor.getString(cursor.getColumnIndex(handler.WEBSITE));
                         String pavail = cursor.getString(cursor.getColumnIndex(handler.PART_TIME_AVAIL));
                         String fpart = cursor.getString(cursor.getColumnIndex(handler.FREQ_PART));
                         String opart = cursor.getString(cursor.getColumnIndex(handler.OPINION_PART));
                         String ptiming= cursor.getString(cursor.getColumnIndex(handler.PART_TIMING));
+                        String ptiming2= cursor.getString(cursor.getColumnIndex(handler.PART_TIMING_TO));
                         String saltyp = cursor.getString(cursor.getColumnIndex(handler.SALARY_TYPE));
                         String monsal = cursor.getString(cursor.getColumnIndex(handler.MONTHLY_SALARY));
                         String agen = cursor.getString(cursor.getColumnIndex(handler.AGENCIES));
@@ -130,15 +134,17 @@ public class Settings extends AppCompatActivity {
                         sheet.addCell(new Label(11, i, zip));
                         sheet.addCell(new Label(12, i, country));
                         sheet.addCell(new Label(13, i, wrkhrs));
-                        sheet.addCell(new Label(14, i, website));
-                        sheet.addCell(new Label(15, i, pavail));
-                        sheet.addCell(new Label(16, i, fpart));
-                        sheet.addCell(new Label(17, i, opart));
-                        sheet.addCell(new Label(18, i, ptiming));
-                        sheet.addCell(new Label(19, i, saltyp));
-                        sheet.addCell(new Label(20, i, monsal));
-                        sheet.addCell(new Label(21, i, agen));
-                        sheet.addCell(new Label(22, i, msp));
+                        sheet.addCell(new Label(14, i, wrkhrs2));
+                        sheet.addCell(new Label(15, i, website));
+                        sheet.addCell(new Label(16, i, pavail));
+                        sheet.addCell(new Label(17, i, fpart));
+                        sheet.addCell(new Label(18, i, opart));
+                        sheet.addCell(new Label(19, i, ptiming));
+                        sheet.addCell(new Label(20, i, ptiming2));
+                        sheet.addCell(new Label(21, i, saltyp));
+                        sheet.addCell(new Label(22, i, monsal));
+                        sheet.addCell(new Label(23, i, agen));
+                        sheet.addCell(new Label(24, i, msp));
                         Toast.makeText(this,sdCard.getAbsolutePath(),Toast.LENGTH_SHORT).show();
                     } while (cursor.moveToNext());
                 }

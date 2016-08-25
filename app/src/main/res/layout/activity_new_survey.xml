@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/email"
             android:hint="Email Id*"
+            android:inputType="textEmailAddress"
             android:layout_gravity="center_horizontal" />
 
         <EditText
@@ -39,6 +40,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/phone"
             android:hint="Contact number*"
+            android:inputType="number"
             android:layout_gravity="center_horizontal" />
 
         <EditText
@@ -104,10 +106,48 @@
             android:layout_height="wrap_content"
             android:text=" Working hours"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/workhr"/>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/workhrto"
+        android:layout_gravity="center_horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/workhr"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/textView4"
+        android:layout_toEndOf="@+id/textView4"
+        android:layout_marginLeft="26dp"
+        android:layout_marginStart="26dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  From"
+        android:id="@+id/textView4"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="To"
+        android:id="@+id/textView5"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/workhrto"
+        android:layout_toStartOf="@+id/workhrto" />
+</RelativeLayout>
+
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -161,11 +201,46 @@
             android:layout_height="wrap_content"
             android:text=" Part time job availability time"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
-        <Button
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/partavail"
-            />
+            android:layout_height="wrap_content">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/partavail"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="76dp"
+                android:layout_marginStart="76dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  From"
+                android:id="@+id/textView6"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/parttimeavailto"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="To"
+                android:id="@+id/textView7"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/parttimeavailto"
+                android:layout_toStartOf="@+id/parttimeavailto"/>
+
+        </RelativeLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

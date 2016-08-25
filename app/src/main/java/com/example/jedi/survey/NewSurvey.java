@@ -24,19 +24,23 @@ import jxl.WorkbookSettings;
 public class NewSurvey extends AppCompatActivity {
 
     EditText NAME, ORGNAME, EMAIL, PHONE, DES, BUSTYPE, STREETADD, LINE2ADD, CITYADD, STATEADD, ZIPADD, WEBSITE, FREQUENCY, OPINIONPART, MONTHSAL,AGEN,MONEYSPENT;
-    Button SUBMIT, PARTAVAIL, WORKHR;
+    Button SUBMIT, PARTAVAIL, WORKHR, WORKHR2,PARTAVAIL2;
     RadioButton RADIOBUTTON, RADIOBUTTON1, SALMON, SALWEEK, SALDAY;
     Spinner COUNTRY;
     DatabaseHandler handler;
     Calendar calendar = Calendar.getInstance();
-    Calendar calendar2= Calendar.getInstance();;
+    Calendar calendar2= Calendar.getInstance();
+    Calendar calendar3= Calendar.getInstance();
+    Calendar calendar4= Calendar.getInstance();
     RadioGroup PARTTIMERAD , SALTYPE;
 
     private long ROW_ID;
     final String cont[] = {"India","Pakistan","Bangladesh","Nepal","China","America"};
     int contr;
-    private static final int WORK_HOUR = 0;
-    private static final int AVAILABLE_HOUR = 1;
+    private static final int WORK_HOUR_TO = 0;
+    private static final int WORK_HOUR_FROM = 1;
+    private static final int AVAILABLE_HOUR_TO = 2;
+    private static final int AVAILABLE_HOUR_FROM = 3;
     public static final String TIME_FORMAT = "kk:mm";
 
 
@@ -65,6 +69,8 @@ public class NewSurvey extends AppCompatActivity {
         SUBMIT = (Button)findViewById(R.id.submit);
         PARTAVAIL = (Button)findViewById(R.id.partavail);
         WORKHR = (Button)findViewById(R.id.workhr);
+        WORKHR2 = (Button)findViewById(R.id.workhrto);
+        PARTAVAIL2 = (Button)findViewById(R.id.parttimeavailto);
 //        RADIOBUTTON = (RadioButton)findViewById(R.id.radioButton);
 //        RADIOBUTTON1 = (RadioButton)findViewById(R.id.radioButton2);
         SALMON = (RadioButton)findViewById(R.id.salmon);
@@ -93,10 +99,14 @@ public class NewSurvey extends AppCompatActivity {
     protected Dialog onCreateDialog(int id) {
         switch (id)
         {
-            case WORK_HOUR :
+            case WORK_HOUR_FROM :
                 return SHOW_WORK_HR_TIME_PICKER();
-            case AVAILABLE_HOUR:
+            case AVAILABLE_HOUR_FROM:
                 return SHOW_PART_AVAIL_TIME_PICKER();
+            case WORK_HOUR_TO:
+                return SHOW_WORK_HR_TO_TIME_PICKER();
+            case AVAILABLE_HOUR_TO:
+                return SHOW_PART_AVAIL_TO_TIME_PICKER();
         }
         return super.onCreateDialog(id);
     }
@@ -145,6 +155,18 @@ public class NewSurvey extends AppCompatActivity {
         }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
         return timePicker;
     }
+    private TimePickerDialog SHOW_PART_AVAIL_TO_TIME_PICKER()
+    {
+        TimePickerDialog timePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+            {	calendar4.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar4.set(Calendar.MINUTE, minute);
+                UPDATE_PART_AVAIL_TO_TIME_BUTTON_TEXT();
+            }
+        }, calendar4.get(Calendar.HOUR_OF_DAY), calendar4.get(Calendar.MINUTE), true);
+        return timePicker;
+    }
 
     private void UPDATE_PART_AVAIL_TIME_BUTTON_TEXT()
     {
@@ -152,6 +174,14 @@ public class NewSurvey extends AppCompatActivity {
         SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
         String timeForButton = timeFormat.format(calendar.getTime());
         PARTAVAIL.setText(timeForButton);
+    }
+
+    private void UPDATE_PART_AVAIL_TO_TIME_BUTTON_TEXT()
+    {
+        // Set the time button text based upon the value from the database
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
+        String timeForButton = timeFormat.format(calendar.getTime());
+        PARTAVAIL2.setText(timeForButton);
     }
 
     private TimePickerDialog SHOW_WORK_HR_TIME_PICKER()
@@ -167,6 +197,20 @@ public class NewSurvey extends AppCompatActivity {
         return timePicker;
     }
 
+
+    private TimePickerDialog SHOW_WORK_HR_TO_TIME_PICKER()
+    {
+        TimePickerDialog timePicker = new TimePickerDialog(this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute)
+            {	calendar3.set(Calendar.HOUR_OF_DAY, hourOfDay);
+                calendar3.set(Calendar.MINUTE, minute);
+                UPDATE_WORK_HR_TO_TIME_BUTTON_TEXT();
+            }
+        }, calendar3.get(Calendar.HOUR_OF_DAY), calendar3.get(Calendar.MINUTE), true);
+        return timePicker;
+    }
+
     private void UPDATE_WORK_HR_TIME_BUTTON_TEXT()
     {
         // Set the time button text based upon the value from the database
@@ -174,20 +218,39 @@ public class NewSurvey extends AppCompatActivity {
         String timeForButton = timeFormat.format(calendar2.getTime());
         WORKHR.setText(timeForButton);
     }
+    private void UPDATE_WORK_HR_TO_TIME_BUTTON_TEXT()
+    {
+        // Set the time button text based upon the value from the database
+        SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT);
+        String timeForButton = timeFormat.format(calendar2.getTime());
+        WORKHR2.setText(timeForButton);
+    }
 
     private void REGISTER_BUTTON_LISTENER()
     {
         PARTAVAIL.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(AVAILABLE_HOUR);
+                showDialog(AVAILABLE_HOUR_FROM);
             }
         });
 
         WORKHR.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialog(WORK_HOUR);
+                showDialog(WORK_HOUR_FROM);
+            }
+        });
+        WORKHR2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(WORK_HOUR_TO);
+            }
+        });
+        PARTAVAIL2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialog(AVAILABLE_HOUR_TO);
             }
         });
 
@@ -199,6 +262,8 @@ public class NewSurvey extends AppCompatActivity {
         });
         UPDATE_WORK_HR_TIME_BUTTON_TEXT();
         UPDATE_PART_AVAIL_TIME_BUTTON_TEXT();
+        UPDATE_WORK_HR_TO_TIME_BUTTON_TEXT();
+        UPDATE_PART_AVAIL_TO_TIME_BUTTON_TEXT();
     }
 
     private void SAVE_STATE()
@@ -246,6 +311,7 @@ public class NewSurvey extends AppCompatActivity {
         String contry = cont[contr];
         SimpleDateFormat format = new SimpleDateFormat(TIME_FORMAT);
         String workinghr = format.format(calendar2.getTime());
+        String workinghr2 = format.format(calendar3.getTime());
         String website = WEBSITE.getText().toString();
         int pt = PARTTIMERAD.getCheckedRadioButtonId();
         RADIOBUTTON = (RadioButton)findViewById(pt);
@@ -253,6 +319,7 @@ public class NewSurvey extends AppCompatActivity {
         String frequency = FREQUENCY.getText().toString();
         String opnprt = OPINIONPART.getText().toString();
         String availtime = format.format(calendar.getTime());
+        String availtime2 = format.format(calendar4.getTime());
         //salary type
         int dt = SALTYPE.getCheckedRadioButtonId();
         RADIOBUTTON1 = (RadioButton)findViewById(dt);
@@ -265,14 +332,14 @@ public class NewSurvey extends AppCompatActivity {
             if (ROW_ID == 0) {
                 long id = handler.INSERT_DATA(name, orgname, email, phone
                         , des, bustype, streetadd, line2add, cityadd, stateadd
-                        , zipadd, contry, workinghr, website, partjob, frequency
-                        , opnprt, availtime, saltype, monsal, agen, moneyspent);
+                        , zipadd, contry, workinghr, workinghr2, website, partjob, frequency
+                        , opnprt, availtime,availtime2, saltype, monsal, agen, moneyspent);
                 if (id > 0) {
                     ROW_ID = id;
                 }
             }
             finish();
-            Toast.makeText(getApplicationContext(), "Reminder Added: ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Reminder Added", Toast.LENGTH_SHORT).show();
         }
     }
     @Override
